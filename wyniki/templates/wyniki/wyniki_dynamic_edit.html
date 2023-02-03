@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+{% load tailwind_filters %}
+
+<body onload="finalValueDynamicShooting()">
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container pt-6">
+  	<div class="row justify-content-center">
+  		<div class="col-auto px-0">
+  			<p>Edytujesz wynik konkurencji {{ cont.zawody }} dla {{ cont.zawodnik }}</p>
+  			
+  				
+					<form method="post" style="margin: 0.01 !important;">{% csrf_token %}
+						{% for field in form %}
+							<p>
+								{% for error in field.errors %}
+									<p style="color: red;">Wprowadzono nieprawidłową wartość dla pola {{ field.label }} {{error}}</p>
+								{% endfor %}
+							</p>
+						{% endfor %}
+
+						{% for error in form.non_field_errors %}
+								<p style="color: red;">{{error}}</p>
+						{% endfor %}
+
+						  <table class="table table-hover table-responsive table-bordered w-auto align-middle md:text-center table-condensed table-striped">
+    						<thead class="table-secondary">
+    							<tr>
+    								<td class="m"><b>Etykieta</b></td>
+                                    <td hidden=True><b></b></td>
+    								<td class="m"><b>Kara</b></td>
+    								<td class="m"><b>Wartość końcowa</b></td>
+                                    
+    							</tr>
+    						</thead>
+    						<tr>
+    							<td>Czas</td>
+    							<td hidden=True></td>
+    							<td></td>
+    							<td>
+    								<div class="d-flex">
+	    								<input type="text" name="czas" id="czas" class="form-control"  value="{{form.czas.value}}" onchange="finalValueDynamicShooting()" required>
+	    							</div>
+    							</td>
+                                
+                            </tr>
+    						<tr>
+    						  <td>Miss</td>
+    						  <td hidden=True><input type="text" name="miss_value" id="missref" class="form-control"  value="{{miss}}" readonly hidden=True></td>
+    						  <td>
+    								<div class="d-flex">
+    									<div class="value-button" id="decrease" onclick="decreaseValueMiss()" value="Decrease Value">-</div>
+    									<input type="text" name="miss_value" id="inputmiss" class="form-control"  value="{{form.miss_value.value}}" required>
+    									<div class="value-button" id="increase" onclick="increaseValueMiss()" value="Increase Value">+</div>
+	    							</div>
+    						  </td>
+    						  <td>
+    						  	    <div class="d-flex">
+    									<input type="text" name="wartosc_koncowa_miss" id="inputwartosc_koncowa_miss" class="form-control"  value="" readonly>
+	    							</div>
+    						  </td>
+                            </tr>
+
+                            <tr>
+    						  <td>Procedura</td>
+                              <td hidden=True><input type="text" name="procedura_value" id="proceduraref" class="form-control"  value="{{procedura}}" readonly hidden=True></td>
+    						  <td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueProcedura()" value="Decrease Value">-</div>
+    									<input type="text" name="procedura_value" id="inputprocedura" class="form-control"  value="{{form.procedura_value.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValueProcedura()" value="Increase Value">+</div>
+	    							</div>
+    						  </td>
+    						  <td>
+    						  	    <div class="d-flex">
+    									<input type="text" name="wartosc_koncowa_miss" id="inputwartosc_koncowa_procedura" class="form-control"  value="" readonly>
+	    							</div>
+	    					   </td>
+                               
+                            </tr>
+
+
+                            <tr>
+    						  <td>NoShoot</td>
+    						  <td hidden=True><input type="text" name="noshoot_value" id="noshootref" class="form-control"  value="{{noshoot}}" readonly hidden=True></td>
+    						  <td>
+    								<div class="d-flex">
+	    								<div class="value-button" id="decrease" onclick="decreaseValueNoShoot()" value="Decrease Value">-</div>
+    									<input type="text" name="noshoot_value" id="inputnoshoot" class="form-control"  value="{{form.noshoot_value.value}}" required>
+	    								<div class="value-button" id="increase" onclick="increaseValueNoShoot()" value="Increase Value">+</div>
+	    							</div>
+    						  </td>
+    						  <td>
+    						  	    <div class="d-flex">
+    									<input type="text" name="wartosc_koncowa_miss" id="inputwartosc_koncowa_noshoot" class="form-control"  value="" readonly>
+	    							</div>
+	    					  </td>
+                              
+                            </tr>
+
+	    					<tr>
+    							<td>Kara</td>
+                                <td hidden=True></td>
+                                <td></td>
+    							<td>{{ form.kara }}</td>
+                                
+    						</tr>  	  	
+
+	    					<tr>
+    							<td>Wynik końcowy</td>
+    							<td hidden=True></td>
+                                <td></td>
+    							<td>
+    								<div class="d-flex">
+    									<input type="text" name="wynik_koncowy" id="wynik_koncowy" class="form-control"  value="" readonly>
+	    							</div>
+    							</td>
+                                
+    						</tr>  	
+    					</table>		
+						<div class="d-flex justify-content-center" >
+							<div>
+								<button type="submit" class="mt-1 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">Zapisz</button>
+							</div>
+						</div>
+					</form>
+
+				
+			</div>
+		</div>
+  </div>
+</section>
+
+</body>
+
+
+{% endblock content %}	

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container">
+
+
+  	{% if druzyny_usera %}
+	  	<div class="d-flex justify-content-center pt-5 pb-3">
+			<h3 class="text-0xl text-gray-800">Jesteś dodany do drużyny {% for druzyna in druzyny_usera %} {{ druzyna.druzyna }} {% endfor %}</h3>
+		</div>
+	{% endif %}
+
+	{% if admin %}
+		<div class="justify-content-center pb-3">
+			<div class="d-flex justify-content-center pt-1 pb-1">
+				<h3 class="text-0xl text-gray-800">Zarządzaj drużyną</h3>
+			</div>
+			<div class="row justify-content-center">
+			    <div class="col-auto">
+			    	<div class="table-responsive">
+				      <table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed">
+				      	<thead class="table-secondary">
+				        	<tr>
+								<td class="mu"><b>Nazwa</b></td>
+								<td class="mu"><b>Dodani zawodnicy</b></td>
+								<td class="mu"><b>Dodaj zawodnika</b></td>
+								<td class="mu"><b>Usuń drużynę</b></td>
+			
+							</tr>
+						</thead>
+				        	{% for druzyna in admin %}
+				        	<tr>
+					            <td class="mu">{{ druzyna.druzyna }}</td>
+
+					        	<td class="mu">{% for osoba in druzyna.sklad %} {{osoba}}<br> {% endfor %}</td>
+					        	<td class="mu"><a href="{% url 'zawodnicy_druzyny_create_view' pk druzyna.druzyna.slug %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Dodaj</a></td>
+					        	<td class="mu">{{ osoba.licencja }}</td>
+
+							</tr>	
+				        	{% endfor %}
+				      </table>
+				     </div>
+			    </div>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="d-flex justify-content-center pt-2 pb-2"" >
+		<div>
+			<a href="{% url 'druzyna_create' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Dodaj drużynę</a>
+		</div>
+	</div>
+
+  </div>
+
+
+
+
+
+{% endblock %}
+
+

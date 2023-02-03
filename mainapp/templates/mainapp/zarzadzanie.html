@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+{% if request.user.is_authenticated %}
+	{% if user.is_superuser or user.rts %}
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'users' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Zarządzaj użytkownikami</a>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'oplata_list' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Opłaty</a>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'bron_amunicja_list' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Broń/Amunicja</a>
+			</div>
+		</div>
+	{% endif %}
+	{% if user.is_superuser %}
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'zawody_lista' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Edycja konkurencji</a>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'turnieje' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Turnieje</a>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center pt-3 pb-2"" >
+			<div>
+				<a href="{% url 'sedzia_lista' pk=pk %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Zarządzaj sędziami</a>
+			</div>
+		</div>
+	{% endif %}
+
+
+
+{% endif %}
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+

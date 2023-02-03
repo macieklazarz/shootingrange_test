@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="max-w-lg mx-auto">
+	<div class="py-5 border-t border-gray-200">
+		<h1 class="text-4xl text-gray-800">Zapissy do konkurencji</h1>
+	</div>
+</div>
+<div class="row justify-content-center">
+ <tr class="table_row">
+	<form method="post" class="mt-0">
+		{% csrf_token %}
+		
+		<td>
+		<table class="ml-0">
+			
+	        <tr>
+	        	{% for field in form %}
+	        		<td>{{ field.label }}</td>
+	        		<td>{{ field }}</td>
+	        	{% endfor %}
+	        </tr>
+		</table>
+	</td>
+
+	
+		
+		<button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-md">Dodaj</button>
+	</form>
+</tr>
+</div>
+
+
+{% endblock content %}

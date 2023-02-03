@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load to_and %}
+
+
+
+{% block content %}
+
+		<div class="container pt-6">
+
+
+
+{% for i in wyniki %}
+		
+			<div class="d-flex justify-content-center" >
+				<div>
+					<h3>{{ i.nazwa }}</h3>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Lp</b></td>
+									<td class="m"><b>Drużyna</b></td>
+									<td class="m"><b>Zawodnicy</b></td>
+									<td class="m"><b>Wynik</b></td>
+								</tr>
+							</thead>
+							{% for val in i.wyniki_konkurencji %}
+							<tr>
+								<td class="m">{{forloop.counter}}</td>
+								<td class="m">{{val.nazwa}}</td>
+								<td class="m">{{val.team|linebreaks}}</td>
+								{% if val.Wynik %}<td class="m">{{val.Wynik}}</td> {% elif val.Wynik == 0 %} <td class="m">0</td> {% endif %}
+
+
+
+
+
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+{% endfor %}
+
+			<div class="d-flex justify-content-center" >
+				<div>
+					<h3>Podsumowanie</h3>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Lp</b></td>
+									<td class="m"><b>Drużyna</b></td>
+									<td class="m"><b>Zawodnicy</b></td>
+									<td class="m"><b>Wynik</b></td>
+								</tr>
+							</thead>
+							{% for val in wyniki_koncowe %}
+							<tr>
+								<td class="m">{{forloop.counter}}</td>
+								<td class="m">{{val.nazwa}}</td>
+								<td class="m">{{val.team|linebreaks}}</td>
+								{% if val.Wynik %}<td class="m">{{val.Wynik}}</td> {% elif val.Wynik == 0 %} <td class="m">0</td> {% endif %}
+
+
+
+
+
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+		{% if request.user.is_admin %}
+			<div class="d-flex justify-content-center" >
+				<div>
+					<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+						Eksport excel
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+
+
+
+
+
+{% endblock %}
+
+

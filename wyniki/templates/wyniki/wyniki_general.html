@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+		<div class="container pt-6">
+
+
+
+{% for key, value in wynik_grupowy.items %}
+		
+			<div class="d-flex justify-content-center" >
+				<div>
+					<h3>{{ key }}</h3>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Lp</b></td>
+									<td class="m"><b>Zawodnik</b></td>
+
+									{% for val in value.dupa %}
+										<td class="m"><b>{{val}}</b></td>
+									{% endfor %}
+
+
+	
+
+									<td class="m"><b>Wynik</b></td>
+
+
+								</tr>
+							</thead>
+							{% for val in value.wynik %}
+							<tr>
+								<td class="m">{{forloop.counter}}</td>
+								<td class="m">{{val.zawodnik}}</td>
+								{% if val.w0 %}<td class="m">{{val.w0}}</td> {% elif val.w0 == 0 %} <td class="m">0</td> {% endif %}
+								{% if val.w1 %}<td class="m">{{val.w1}}</td> {% elif val.w1 == 0 %} <td class="m">0</td>  {% endif %}
+								{% if val.w2 %}<td class="m">{{val.w2}}</td> {% elif val.w2 == 0 %} <td class="m">0</td> {% endif %}
+								{% if val.w3 %}<td class="m">{{val.w3}}</td> {% elif val.w3 == 0 %} <td class="m">0</td> {% endif %}
+
+
+
+
+								<td class="m">{{val.Wynik}}</td>
+
+
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+{% endfor %}
+{% if not nazwa_turnieju.0.turniej_druzynowy %}
+
+			<div class="d-flex justify-content-center" >
+				<div>
+					<h3>Podsumowanie</h3>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<div class="table-responsive">
+						<table class="table table-hover table-responsive table-bordered mx-auto w-auto align-middle md:text-center table-condensed table-striped">
+							<thead class="table-secondary">
+								<tr>
+									<td class="m"><b>Lp</b></td>
+									<td class="m"><b>Zawodnik</b></td>
+
+									{% for val in wynik_generalny.header %}
+										<td class="m"><b>{{val}}</b></td>
+									{% endfor %}
+
+
+	
+
+									<td class="m"><b>Wynik</b></td>
+
+
+								</tr>
+							</thead>
+							{% for val in wynik_generalny.wynik %}
+								{% if val.Wynik %}
+								<tr>
+									<td class="m">{{forloop.counter}}</td>
+									<td class="m">{{val.zawodnik}}</td>
+									{% if val.w0 %}<td class="m">{{val.w0}}</td> {% elif val.w0 == 0 %} <td class="m">0</td> {% endif %}
+									{% if val.w1 %}<td class="m">{{val.w1}}</td> {% elif val.w1 == 0 %} <td class="m">0</td>  {% endif %}
+									{% if val.w2 %}<td class="m">{{val.w2}}</td> {% elif val.w2 == 0 %} <td class="m">0</td> {% endif %}
+									{% if val.w3 %}<td class="m">{{val.w3}}</td> {% elif val.w3 == 0 %} <td class="m">0</td> {% endif %}
+
+
+
+
+									<td class="m">{{val.Wynik}}</td>
+
+
+								</tr>
+								{% endif %}
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+		{% if request.user.is_admin and not nazwa_turnieju.0.turniej_druzynowy %}
+			<div class="d-flex justify-content-center" >
+				<div>
+					<a href="{% url 'exportexcelgeneralka' pk%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+						Eksport excel
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		{% if request.user.is_admin%}
+			<div class="d-flex justify-content-center pt-2" >
+				<div>
+					<a href="{% url 'export_psv_wyniki_general' pk%}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
+						Eksport txt
+					</a>
+				</div>
+			</div>
+		{% endif %}
+		</div>
+
+
+
+
+
+{% endblock %}
+
+

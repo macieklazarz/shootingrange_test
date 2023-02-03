@@ -1,0 +1,25 @@
+select 
+	account_account.nazwisko,
+	account_account.imie,
+	account_account.email,
+	sum(wyniki_wyniki.X) as X,
+	sum(wyniki_wyniki.Xx) as '10',
+	sum(wyniki_wyniki.dziewiec) as '9',
+	sum(wyniki_wyniki.osiem) as '8',
+	sum(wyniki_wyniki.siedem) as '7',
+	sum(wyniki_wyniki.szesc) as '6',
+	sum(wyniki_wyniki.piec) as '5',
+	sum(wyniki_wyniki.cztery) as '4',
+	sum(wyniki_wyniki.trzy) as '3',
+	sum(wyniki_wyniki.dwa) as '2',
+	sum(wyniki_wyniki.jeden) as '1',
+	sum(wyniki_wyniki.X*10 + wyniki_wyniki.Xx*10 + wyniki_wyniki.dziewiec*9 + wyniki_wyniki.osiem*8 + wyniki_wyniki.siedem*7 + wyniki_wyniki.szesc*6 + wyniki_wyniki.piec*5 + wyniki_wyniki.cztery*4 + wyniki_wyniki.trzy*3 + wyniki_wyniki.dwa*2 + wyniki_wyniki.jeden*1) as 'Wynik'
+from account_account
+left join wyniki_wyniki on account_account.id = wyniki_wyniki.zawodnik_id
+left join zawody_zawody on zawody_zawody.id = wyniki_wyniki.zawody_id
+left join zawody_turniej on zawody_turniej.id = zawody_zawody.turniej_id
+
+where zawody_turniej.id in (10, 15)
+and zawody_zawody.id in (63, 82)
+group by account_account.id
+order by Wynik desc, account_account.nazwisko, account_account.imie
